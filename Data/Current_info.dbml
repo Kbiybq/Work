@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Current_info" Class="Current_infoDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=PAHOMOVIK;Initial Catalog=Current_info;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="Current_infoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PowerFacility" Member="PowerFacility">
+    <Type Name="PowerFacility">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DispatchName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="PowerFacility_Equipment" Member="Equipment" ThisKey="ID" OtherKey="IDPowerFacility" Type="Equipment" />
+      <Association Name="PowerFacility_PowerLineDiscription" Member="PowerLineDiscription" ThisKey="ID" OtherKey="IDPowerFacilityEnd" Type="PowerLineDiscription" />
+      <Association Name="PowerFacility_PowerLineDiscription1" Member="PowerLineDiscription1" ThisKey="ID" OtherKey="IDPowerFacilityStart" Type="PowerLineDiscription" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EquipmentClass" Member="EquipmentClass">
+    <Type Name="EquipmentClass">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="EquipmentClass_EquipmentType" Member="EquipmentType" ThisKey="ID" OtherKey="IDClass" Type="EquipmentType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EquipmentType" Member="EquipmentType">
+    <Type Name="EquipmentType">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDClass" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="IDVoltageLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Inom" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="EquipmentType_Equipment" Member="Equipment" ThisKey="ID" OtherKey="IDType" Type="Equipment" />
+      <Association Name="EquipmentClass_EquipmentType" Member="EquipmentClass" ThisKey="IDClass" OtherKey="ID" Type="EquipmentClass" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="VoltageLevel_EquipmentType" Member="VoltageLevel" ThisKey="IDVoltageLevel" OtherKey="ID" Type="VoltageLevel" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VoltageLevel" Member="VoltageLevel">
+    <Type Name="VoltageLevel">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VoltageLevel" Member="VoltageLevel1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="VoltageLevel_EquipmentType" Member="EquipmentType" ThisKey="ID" OtherKey="IDVoltageLevel" Type="EquipmentType" />
+      <Association Name="VoltageLevel_PowerLineDiscription" Member="PowerLineDiscription" ThisKey="ID" OtherKey="IDVoltageLevel" Type="PowerLineDiscription" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DispatchingCenter" Member="DispatchingCenter">
+    <Type Name="DispatchingCenter">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NameDispatchingCenter" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="DispatchingCenter_PowerLineDispatchingVision" Member="PowerLineDispatchingVision" ThisKey="ID" OtherKey="IDDispatchingCenterVision" Type="PowerLineDispatchingVision" />
+      <Association Name="DispatchingCenter_PowerLineDiscription" Member="PowerLineDiscription" ThisKey="ID" OtherKey="IDDispatchingCenterControl" Type="PowerLineDiscription" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CurrentDepend" Member="CurrentDepend">
+    <Type Name="CurrentDepend">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeOfCurrentLoad" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="AllowTime" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="CurrentDepend_TCurrentDepend" Member="TCurrentDepend" ThisKey="ID" OtherKey="IDCurrentDepend" Type="TCurrentDepend" />
+      <Association Name="CurrentDepend_ElementCurrentLimit" Member="ElementCurrentLimit" ThisKey="ID" OtherKey="IDCurrentDepend" Type="ElementCurrentLimit" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PowerLineDispatchingVision" Member="PowerLineDispatchingVision">
+    <Type Name="PowerLineDispatchingVision">
+      <Column Name="IDPowerLine" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDDispatchingCenterVision" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="DispatchingCenter_PowerLineDispatchingVision" Member="DispatchingCenter" ThisKey="IDDispatchingCenterVision" OtherKey="ID" Type="DispatchingCenter" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="PowerLineDiscription_PowerLineDispatchingVision" Member="PowerLineDiscription" ThisKey="IDPowerLine" OtherKey="ID" Type="PowerLineDiscription" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Equipment" Member="Equipment">
+    <Type Name="Equipment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDPowerFacility" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDClass" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DispatchName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Length" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="NumberOfWires" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Equipment_TCurrentDepend" Member="TCurrentDepend" ThisKey="ID" OtherKey="IDEquipment" Type="TCurrentDepend" />
+      <Association Name="Equipment_PowerLineComposition" Member="PowerLineComposition" ThisKey="ID" OtherKey="IDEquipment" Type="PowerLineComposition" />
+      <Association Name="EquipmentType_Equipment" Member="EquipmentType" ThisKey="IDType" OtherKey="ID" Type="EquipmentType" IsForeignKey="true" />
+      <Association Name="PowerFacility_Equipment" Member="PowerFacility" ThisKey="IDPowerFacility" OtherKey="ID" Type="PowerFacility" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PowerLineDiscription" Member="PowerLineDiscription">
+    <Type Name="PowerLineDiscription">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DispatchName" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="IDVoltageLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDDispatchingCenterControl" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPowerFacilityStart" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPowerFacilityEnd" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserItem" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="PowerLineDiscription_PowerLineDispatchingVision" Member="PowerLineDispatchingVision" ThisKey="ID" OtherKey="IDPowerLine" Type="PowerLineDispatchingVision" />
+      <Association Name="PowerLineDiscription_PowerLineComposition" Member="PowerLineComposition" ThisKey="ID" OtherKey="IDPowerLine" Type="PowerLineComposition" />
+      <Association Name="PowerLineDiscription_ElementCurrentLimit" Member="ElementCurrentLimit" ThisKey="ID" OtherKey="IDPowerLine" Type="ElementCurrentLimit" />
+      <Association Name="DispatchingCenter_PowerLineDiscription" Member="DispatchingCenter" ThisKey="IDDispatchingCenterControl" OtherKey="ID" Type="DispatchingCenter" IsForeignKey="true" />
+      <Association Name="PowerFacility_PowerLineDiscription" Member="PowerFacility" ThisKey="IDPowerFacilityEnd" OtherKey="ID" Type="PowerFacility" IsForeignKey="true" />
+      <Association Name="PowerFacility_PowerLineDiscription1" Member="PowerFacility1" ThisKey="IDPowerFacilityStart" OtherKey="ID" Type="PowerFacility" IsForeignKey="true" />
+      <Association Name="VoltageLevel_PowerLineDiscription" Member="VoltageLevel" ThisKey="IDVoltageLevel" OtherKey="ID" Type="VoltageLevel" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TCurrentDepend" Member="TCurrentDepend">
+    <Type Name="TCurrentDepend">
+      <Column Name="IDEquipment" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDCurrentDepend" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Temp" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Current]" Member="Current" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Kcorr" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="CurrentDepend_TCurrentDepend" Member="CurrentDepend" ThisKey="IDCurrentDepend" OtherKey="ID" Type="CurrentDepend" IsForeignKey="true" />
+      <Association Name="Equipment_TCurrentDepend" Member="Equipment" ThisKey="IDEquipment" OtherKey="ID" Type="Equipment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PowerLineComposition" Member="PowerLineComposition">
+    <Type Name="PowerLineComposition">
+      <Column Name="IDPowerLine" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDElementPosition" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDEquipmentPosition" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDEquipment" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Equipment_PowerLineComposition" Member="Equipment" ThisKey="IDEquipment" OtherKey="ID" Type="Equipment" IsForeignKey="true" />
+      <Association Name="PowerLineDiscription_PowerLineComposition" Member="PowerLineDiscription" ThisKey="IDPowerLine" OtherKey="ID" Type="PowerLineDiscription" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ElementCurrentLimit" Member="ElementCurrentLimit">
+    <Type Name="ElementCurrentLimit">
+      <Column Name="IDPowerLine" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDElementPosition" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDCurrentDepend" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Temp" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MinCurrent" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="CurrentDepend_ElementCurrentLimit" Member="CurrentDepend" ThisKey="IDCurrentDepend" OtherKey="ID" Type="CurrentDepend" IsForeignKey="true" />
+      <Association Name="PowerLineDiscription_ElementCurrentLimit" Member="PowerLineDiscription" ThisKey="IDPowerLine" OtherKey="ID" Type="PowerLineDiscription" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

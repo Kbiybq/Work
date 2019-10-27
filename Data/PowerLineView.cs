@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class PowerLine : DataBase
+    /// <summary>
+    /// Класс для представления ЛЭП
+    /// </summary>
+    public class PowerLineView
     {
         #region Свойства
+
+        /// <summary>
+        /// Уникальный идентификационный номер
+        /// </summary>
+        public int ID { get; set; }
 
         /// <summary>
         /// Диспетчерское наименование оборудования
@@ -58,11 +66,11 @@ namespace Data
         /// <param name="powerFacilityStart"></param>
         /// <param name="powerFacilityEnd"></param>
         /// <param name="userItem"></param>
-        public PowerLine(int id, string dispatchName, int voltageLevel, string dispatchingCenterControl,
+        public PowerLineView(int id, string dispatchName, int voltageLevel, string dispatchingCenterControl,
             List<string> dispatchingCenterVision,
             string powerFacilityStart, string powerFacilityEnd, string userItem)
-            : base(id)
         {
+            ID = id;
             DispatchName = dispatchName;
             VoltageLevel = voltageLevel;
             DispatchingCenterControl = dispatchingCenterControl;

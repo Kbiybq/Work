@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Data.Linq;
 
 namespace SQLApp
 {
@@ -18,6 +20,18 @@ namespace SQLApp
         /// </summary>
         private SqlConnection Connection { get; set; }
 
+        /// <summary>
+        /// Дата контекст
+        /// </summary>
+        public Current_infoDataContext db { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Current_infoDataContext CreateDataContext()
+        {
+            return db = new Current_infoDataContext(ConnectionString);
+        }
 
         /// <summary>
         /// Формирование строки подключения
@@ -25,7 +39,7 @@ namespace SQLApp
         /// <returns></returns>
         public void FormationSqlConnectionString()
         {
-            ConnectionString = "Data Source=PAHOMOVIK;Initial Catalog=Current_info;Integrated Security=True";
+            ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
 
         /// <summary>

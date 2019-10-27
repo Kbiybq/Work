@@ -13,8 +13,17 @@ namespace SQLApp
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new VM();
+            DataContext = new MainWindowVM();
         }
 
+        private void StackPanel_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DataTab_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

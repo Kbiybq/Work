@@ -1,0 +1,78 @@
+﻿<Window x:Class="SQLApp.Windows.AddPowerLineComposition"
+        x:Name="AddPowerLineCompositionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQLApp.Windows"
+        mc:Ignorable="d"
+        Title="Добавление состава ЛЭП" Height="1100" Width="1400"
+        MinWidth="1400" MinHeight="1100">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="950"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="1200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="850"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="Images\Sheme.png"/>
+            <Button
+                HorizontalAlignment="Left" Height="51" 
+                Margin="244,239,0,0" 
+                VerticalAlignment="Top" Width="57" 
+                Opacity="0.3" Background="Yellow"
+                Command = "{Binding AddEquipment}"
+                CommandParameter="{Binding CollectionPositionInPowerLine[0][0]}"
+                Style="{StaticResource ButtonStyle1}"/>
+            <Button
+                HorizontalAlignment="Left" Height="51" 
+                Margin="301,239,0,0" 
+                VerticalAlignment="Top" Width="40" 
+                Opacity="0.3" Background="Green"
+                Command = "{Binding AddEquipment}"
+                CommandParameter="{Binding CollectionPositionInPowerLine[0][1]}"
+                Style="{StaticResource ButtonStyle1}"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Добавить"
+                        Grid.Column="5" Grid.Row="1"
+                        Background="Green"
+                        Command="{Binding AddPowerLineCompositionCommand}"
+                        CommandParameter="{Binding ElementName=AddPowerLineCompositionWindow}"/>
+                <Button Content="Отмена"
+                        Grid.Column="6" Grid.Row="3"
+                        Background="Red"
+                        Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding ElementName=AddPowerLineCompositionWindow}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

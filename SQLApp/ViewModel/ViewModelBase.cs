@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace SQLApp
 {
-    public class Service : INotifyPropertyChanged
+    /// <summary>
+    /// Базовый класс для моделей представления
+    /// </summary>
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
