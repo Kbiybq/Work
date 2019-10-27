@@ -20,20 +20,14 @@ namespace SQLApp.ViewModel
         public static void FillPositionElementCollection()
         {
             //for(int i = 0; i<9; i++)
-            //{
-            //    MultiCollectionPositionInPowerLine.Add(new ObservableCollection<PositionInPowerLineVM>());
-            //}
+            {
+                MultiCollectionPositionInPowerLine.Add(new ObservableCollection<PositionInPowerLineVM>());
+            }
             for (int i=0; i<=6; i = i + 3)
             {
-                var line = new ObservableCollection<PositionInPowerLineVM>();
-                var bus1 = new ObservableCollection<PositionInPowerLineVM>();
-                var bus2 = new ObservableCollection<PositionInPowerLineVM>();
-                line.Add(new PositionInPowerLineVM("Buser", i+1, 1));
-                MultiCollectionPositionInPowerLine.Add(line);
-                bus1.Add(new PositionInPowerLineVM("LineDisconnector", i+2, 1));
-                MultiCollectionPositionInPowerLine.Add(bus1);
-                bus2.Add(new PositionInPowerLineVM("BypassDisconnector", i+3, 1));
-                MultiCollectionPositionInPowerLine.Add(bus2);
+                MultiCollectionPositionInPowerLine[i].Add(new PositionInPowerLineVM("Buser", i+1, 1));
+                MultiCollectionPositionInPowerLine[i + 1].Add(new PositionInPowerLineVM("LineDisconnector", i+2, 1));
+                MultiCollectionPositionInPowerLine[i + 2].Add(new PositionInPowerLineVM("BypassDisconnector", i+3, 1));
 
                 //MultiCollectionPositionInPowerLine[i].Add(new PositionInPowerLineVM("Buser", i+1, 1));
                 //MultiCollectionPositionInPowerLine[i + 1].Add(new PositionInPowerLineVM("LineDisconnector", i+2, 1));
